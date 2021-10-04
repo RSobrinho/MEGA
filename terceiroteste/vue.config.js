@@ -1,5 +1,5 @@
 // vue.config.js
-
+//teste
 /**
  * @type {import('@vue/cli-service').ProjectOptions}
  */
