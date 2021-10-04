@@ -53,7 +53,7 @@
 /*axius.get(localhost:3000/cadastrar-medico) , ler documentacao do axios, ou axios*/
 
 export default {
-  name: 'telaPrincipal',
+  name: 'telaprincipal',
   components: {
   }
 }

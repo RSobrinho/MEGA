@@ -5,22 +5,22 @@
  */
  module.exports = {
     pages: {
-        'landingPage': {
+        'landingpage': {
             entry: './src/pages/landingPage/main.js',
             template: 'public/index.html',
-            title: 'landingPage',
-            chunks: [ 'chunk-vendors', 'chunk-common', 'landingPage']
+            title: 'landingpage',
+            chunks: [ 'chunk-vendors', 'chunk-common', 'landingpage']
         },
-         'telaLogin': {
-             entry: './src/pages/telaLogin/main.js',
+         'telalogin': {
+             entry: './src/pages/telalogin/main.js',
              template: 'public/index.html',
-             title: 'telaLogin',
-             chunks: [ 'chunk-vendors', 'chunk-common', 'telaLogin']
+             title: 'telalogin',
+             chunks: [ 'chunk-vendors', 'chunk-common', 'telalogin']
          },
 
          // restaurarSenha
          // 
-         'telaPrincipal': {
+         'telaprincipal': {
              entry: './src/main.js'
          }
      }

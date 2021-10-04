@@ -17,9 +17,9 @@
         <div>
         <h1 id="t1">Duck Health</h1>
         <h5 id="pg1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia euismod imperdiet. Pellentesque vel ultricies ante. lacinia euismod imperdiet. ultricies ante. </h5>
-        </div>
+        </div> 
 
-        <div id="botaoLaudo"><a href="telaLogin">Acessar Laudos</a></div>
+        <div id="botaoLaudo"><a href="telalogin">Acessar Laudos</a></div>
       </section>
 
       <section id="p5">
@@ -37,7 +37,7 @@
 //import telaLogin from './components/telaLogin.vue'
 
 export default {
-  name: 'landingPage',
+  name: 'landingpage',
   components: {
   }
 }
