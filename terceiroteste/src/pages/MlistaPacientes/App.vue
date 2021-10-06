@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-
-
-
+    <barraLateral/>
+    <barraHorizontalPesquisa/>
+    <listaPaciente/>
   </div>
 </template>
 
 <script>
 
-import barraLateral from './components/barraLateral.vue'
-import barraHorizontalPesquisa from './components/barraHorizontalPesquisa.vue'
-import listaPaciente from './components/listaPaciente.vue'
+import barraLateral from '@/Components/barraLateral.vue'
+import barraHorizontalPesquisa from '@/Components/barraHorizontalPesquisa.vue'
+import listaPaciente from '@/Components/listaPaciente.vue'
 
 export default {
   name: 'MlistaPacientes',

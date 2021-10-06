@@ -34,8 +34,68 @@
         </div>
       </section>
 
+      <section><div class="mtoespaco">testeteste</div></section>
+
+      <section id="p3">
+        <h2 id="t3">Exames</h2>
+
+        <div class="imagemTexto">
+          <img class="imagemCima" src="@/assets/doctor.jpg" alt="medicoPaciente2">
+          <h6 class="textoBaixo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin,</h6>
+        </div>
+        <div class="imagemTexto">
+          <img class="imagemCima" src="@/assets/doctor3.jpg" alt="medicoPaciente2">
+          <h6 class="textoBaixo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin,</h6>
+        </div>
+        <div class="imagemTexto">
+          <img class="imagemCima" src="@/assets/doctor2.jpg" alt="medicoPaciente2">
+          <h6 class="textoBaixo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin,</h6>
+        </div>
+        <div class="imagemTexto">
+          <img class="imagemCima" src="@/assets/doctor3.jpg" alt="medicoPaciente2">
+          <h6 class="textoBaixo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin,</h6>
+        </div>
+        <div class="imagemTexto">
+          <img class="imagemCima" src="@/assets/doctor.jpg" alt="medicoPaciente2">
+          <h6 class="textoBaixo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin,</h6>
+        </div>
+      </section>
+
+
+      <section id="p4">
+        <div>
+          <h1 id="t4">Endereço</h1>
+          <div id="pg4">
+            <h6>Rua X, Bairro Y, N° Z</h6>
+            <h6>Ambiente climatizado, para o seu conforto ao atende-lo!</h6>
+            <h6>Sala com brinquedos e passa-tempo para as crianças!</h6>
+          </div>
+        </div>
+        <img id="mapa" src="@/assets/maps.jpg" alt="mapa">
+
+      </section>
 
       <section id="p5">
+        <form class="formularioDuvidas" method="POST" action="NÃO SEI ;-;">
+          <div>
+            <div class="b1"><input type="text" name="Nome" id="nome" placeholder="Nome"></div>
+            <div class="b2"><input type="text" name="Email" id="email" placeholder="Email"></div>
+            <div class="b3"><input type="text" name="enviar" id="enviar" placeholder="Como podemos ajudar? Escreva sua dúvida"></div>
+            <div class="b4"><input type="submit" name="enviar" id="enviar" value="Enviar"></div>
+          </div>
+        </form>
+        <div>
+          <h1 id="t5">Contatos</h1>
+          <div class="pg5">
+            <h3>67(0000-0000) ou 67(00000-0000)</h3>
+            <h3>@Duck_Health</h3>
+            <h3>Duck Heath</h3>
+            <h3>Duck Heath</h3>
+          </div>
+        </div>
+      </section>
+
+      <section id="p6">
         <img src="@/assets/DuckHealthLogo.png" width="160" height="147" alt="logoRodape">
         <p>Duck Health</p>
       </section>
@@ -59,8 +119,9 @@ export default {
 </script>
 
 <style scoped>
-#app {
-  font-weight: 800;
+body {
+  width: 100%;
+  height:100vh;
 }
 
 .link {
@@ -134,6 +195,15 @@ button {
 }
 
 
+.imagemCima {
+  max-height: 250px;
+  max-width: 250px;
+}
+
+.mtoespaco {
+  top: 400px;
+}
+
 
 
 #p2 {
@@ -157,20 +227,28 @@ button {
   margin-left: 83px;
 }
 #t2 {
+  position: absolute;
   font-size: 48px;
   right: 0%;
+  margin-top: 128px;
+  margin-right: 156px;
+  z-index: 1;
 }
 #pg2 {
+  position: absolute;
   font-size: 20px;
   text-align:justify;
+  width: 507px;
+  z-index: 1;
+  right: 0%;
   margin-right: 81px;
-
+  margin-top: 226px;
 }
 
 
 
 
-#p5 {
+#p6 {
   position: absolute;
   top: 3072px;
   background-color: #15c3d6;

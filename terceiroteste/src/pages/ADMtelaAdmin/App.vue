@@ -1,19 +1,21 @@
 <template>
   <div id="app">
-
-
-
+    <configuracoesPrincipais/>
+    <barraLateral/>
+    <controlePacienteMedico/>
   </div>
 </template>
 
 <script>
 
-import controlePacienteMedico from './components/controlePacienteMedico.vue'
-import barraLateral from './components/barraLateral.vue'
+import controlePacienteMedico from '@/Components/controlePacienteMedico.vue'
+import barraLateral from '@/Components/barraLateral.vue'
+import configuracoesPrincipais from '@/Components/configuracoesPrincipais.vue'
 
 export default {
   name: 'ADMtelaAdmin',
   components: {
+    configuracoesPrincipais,
     controlePacienteMedico,
     barraLateral
   }
@@ -22,11 +24,5 @@ export default {
 </script>
 
 <style>
-#app {
-  background-color: #ebf2f5;
-  width: 100vw;
-  height: 3219px;
-  color: white;
-  font-family:Arial, Helvetica, sans-serif;
-}
+
 </style>

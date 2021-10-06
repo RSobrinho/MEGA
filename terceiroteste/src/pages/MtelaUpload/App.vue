@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-
+    <barraLateral/>
+    <carregarNovoLaudo/>
   </div>
 </template>
 
 <script>
 
-import carregarNovoLaudo from '.components/carregarNovoLaudo.vue'
-import barraLateral from './components/barraLateral.vue'
+import carregarNovoLaudo from '@/Components/carregarNovoLaudo.vue'
+import barraLateral from '@/Components/barraLateral.vue'
 
 export default {
   name: 'MtelaUpload',

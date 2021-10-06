@@ -15,7 +15,7 @@
         <h1 class="titulo">Bem-vindo</h1>
         <h2 class="subtitulo">Acesse seus <span style="color: #FFD666;">laudos</span> agora!</h2>
         
-        <form class="dados" method="POST" action="../assets/teste.txt">
+        <form class="dados" method="POST" action="NÃO SEI ;-;">
           <div>
             <div class="b1"><input type="text" name="cpf" id="cpf" placeholder="Escreva aqui seu CPF"></div>
             <div class="b2"><input type="password" name="senha" id="senha" placeholder="Escreva aqui a senha"></div>
