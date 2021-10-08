@@ -2,12 +2,9 @@
   <div>
     <configuracoesPrincipais/>
     <div id="barra">
-      <div>
+      <button @click="$emit('voltar')">
         <img id="logo" src="@/assets/DuckHealthLogo.png" alt="logopato">
-      </div>
-      <div id="sair">
-        <a href="javascript:history.back()"><img id="botao" src="@/assets/logout.png" alt="botaoVoltar"></a>
-      </div>
+      </button>
     </div>
   </div>
 </template>
@@ -18,6 +15,7 @@ import configuracoesPrincipais from "./configuracoesPrincipais.vue"
 
 export default {
   name: 'barraLateral',
+  emits: ['voltar'],
   components: {
     configuracoesPrincipais
   }
@@ -26,7 +24,7 @@ export default {
 
 <style>
 #barra {
-  position: absolute;
+  position: relative;
   background-color: #15c3d6;
   width: 112px;
   height: 100%;
