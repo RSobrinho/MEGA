@@ -41,11 +41,7 @@
 
             <div id="excluirPaciente">
               <button class="bExc" @click="bExcluir = true, bCerto = informacaoPessoa.id">excluirPaciente</button>
-              <div v-show="bExcluir == true && bCerto == informacaoPessoa.id">
-                <h2>Quer realmente excluir esse paciente?</h2>
-                <button class="bSim" @click="confirmacaoExcluir(informacaoPessoa)">Sim</button>
-                <button class="bNao" @click="bExcluir = false">Não</button>
-              </div>
+
             </div>
 
           </div>
@@ -170,15 +166,15 @@ export default {
 
   data() { // esse são os objetos, que vao ser usados nos métodos, e também são os que estão sendo utilizados lá no addEditarMedicoPaciente.vue passado por props(aql regiao do codigo verde)
     return {
-    addEditar: "Cadastrar ",
-    tipo: "Médico",
-    acao: "Cadastrar",
-    tipoConta: true,
-    imagemMP: 'doctor.jpg',
+      addEditar: "Cadastrar ",
+      tipo: "Médico",
+      acao: "Cadastrar",
+      tipoConta: true,
+      imagemMP: 'doctor.jpg',
 
-    s1: false,
-    bExcluir: false,
-    bCerto: false,
+      s1: false,
+      bExcluir: false,
+      bCerto: false,
 
       /* esses sao os objetos, mas que vao ser trocados pelos dados no bd e no backend(mas a sintaxe é essa), pra aparecer esses dados das pessoas, seja ela medico ou paciente
       por enquanto eu deixei uns prontos, porque nao ta conectado com o bd, e qnd tiver(com os dados dessa forma ou eu posso mudar se precisar de acordo com o bd), 

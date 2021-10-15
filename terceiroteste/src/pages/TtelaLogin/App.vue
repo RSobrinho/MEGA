@@ -23,7 +23,7 @@
           </div>
         </form>
 
-        <h5>Esqueceu sua senha? <a href="restaurarSenha"><span class="restSenha">Clique Aqui!</span></a></h5> 
+        <h5>Esqueceu sua senha? <a href="restaurarSenha"><span id="restSenha">Clique Aqui!</span></a></h5> 
       </section>
       
       <section>
@@ -71,6 +71,7 @@ export default {
   margin-top: 25px;
   margin-left: 120px;
   color: #FFD666;
+  font-size: 24px;
 }
 .l2 {
   color: #00DDF9;
@@ -102,10 +103,11 @@ h5 {
   left: 87px;
   font-size: 20px;
 }
-.restSenha {
+#restSenha {
   color: #FFD666;
-  text-decoration-line: none;
-  text-decoration-style: solid;
+}
+a {
+  text-decoration-color: #FFD666;
 }
 #cpf {
   position: absolute;
