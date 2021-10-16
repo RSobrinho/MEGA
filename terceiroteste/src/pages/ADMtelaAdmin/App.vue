@@ -2,52 +2,60 @@
   <div>
     <configuracoesPrincipais/>
     <barraLateral @voltar="desabilitarForm"/>
-    <div v-if="s1 == false">
+    <div id="container" v-if="s1 == false">
 
-      <div id="configMedico">
-        <img src="" alt="fotoMedico">
-        <h1>Lista de Medicos</h1>
-        <button id="bCadMedico" @click="cadastrarMedico(), habilitarForm()">cadastrarMedico</button>
-        <div v-for="informacaoPessoa in pessoasCadastradas" :key="informacaoPessoa.id"> <!--Esse div v-for vai fazer tudo oq ta dentro, na quantidade de pessoas que existem no array de objetos, que na vdd vc vai muda pra a qtde de elementos no bd  |  Alem disso, ele vai ter o botao pra abrir o form de edicao, que vai ter q lincar com o bd pra pegaWr os dados de la, e transferir para o array de elementos | E o botao de excluir medico tbm vai estar ligado ao bd, pra excluir X pessoa e seus elementos no array-->
-          
-          <div v-show="verificaExistencia(informacaoPessoa) == true">
-            <h2>{{informacaoPessoa.nomePessoa}}</h2>
-            <h4>{{informacaoPessoa.cpfPessoa}}</h4>
-            <button id="bEditMedico" @click="editarMedico(), habilitarForm(), encontrarPessoa(informacaoPessoa)">editarMedico</button>
-          
-            <div id="excluirMedico">
-              <button class="bExc" @click="bExcluir = true, bCerto = informacaoPessoa.id">excluirMedico</button>
-              <div v-show="bExcluir == true && bCerto == informacaoPessoa.id">
-                <h2>Quer realmente excluir esse médico?</h2>
-                <button class="bSim" @click="confirmacaoExcluir(informacaoPessoa)">Sim</button>
-                <button class="bNao" @click="bExcluir = false">Não</button>
+      <div class="configPessoa">
+        <img class="logos" src="@/assets/doctor4.png" alt="fotoMedico">
+        <h1 class="lista">Lista de Medicos</h1>
+        <button class="botao cad" @click="cadastrarMedico(), habilitarForm(), limparTextoCadastro(), bExcluir = false"><img class="icone" src="@/assets/add.png" alt="cadastrarMedico"></button>
+        <div class="divider"></div>
+        <div class="blocos">
+          <div v-for="informacaoPessoa in pessoasCadastradas" :key="informacaoPessoa.id"> <!--Esse div v-for vai fazer tudo oq ta dentro, na quantidade de pessoas que existem no array de objetos, que na vdd vc vai muda pra a qtde de elementos no bd  |  Alem disso, ele vai ter o botao pra abrir o form de edicao, que vai ter q lincar com o bd pra pegaWr os dados de la, e transferir para o array de elementos | E o botao de excluir medico tbm vai estar ligado ao bd, pra excluir X pessoa e seus elementos no array-->
+            <span class="bordinha"></span>
+            <div class="blocoDeInformacao" v-show="verificaExistencia(informacaoPessoa) == true">
+              <h2>{{informacaoPessoa.nomePessoa}}</h2>
+              <h4>{{informacaoPessoa.cpfPessoa}}</h4>
+              <button class="botao" @click="editarMedico(), habilitarForm(), encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarMedico"></button>
+            
+              <button class="botao" @click="bExcluir = true, bCerto = informacaoPessoa.id"><img class="icone" src="@/assets/trash.png" alt="excluirMedico"></button>
+              <div class="excluir" v-show="bExcluir == true && bCerto == informacaoPessoa.id">
+                <img class="alertIcon" src="@/assets/alert.png" alt="iconeAlerta">
+                <h2 class="confirmacaoExclusao">Quer realmente excluir esse médico?</h2>
+                <div>
+                  <button class="botaoEscolha" @click="confirmacaoExcluir(informacaoPessoa)">Sim</button>
+                  <button class="botaoEscolha" @click="bExcluir = false">Não</button>
+                </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
 
-      <div id="configPaciente">
-        <img src="" alt="fotoPaciente">
-        <h1>Lista de Pacientes</h1>
-        <button id="bCadPaciente" @click="cadastrarPaciente(), habilitarForm()">cadastrarPaciente</button>
-        <div v-for="informacaoPessoa in pessoasCadastradas" :key="informacaoPessoa.id">
+      <div class="configPessoa">
+        <img class="logos" src="@/assets/patient.png" alt="fotoPaciente">
+        <h1 class="lista">Lista de Pacientes</h1>
+        <button class="botao cad" @click="cadastrarPaciente(), habilitarForm(), limparTextoCadastro(), bExcluir = false"><img class="icone" src="@/assets/add.png" alt="cadastrarPaciente"></button>
+        <div class="divider"></div>
+        <div class="blocos">
+          <div v-for="informacaoPessoa in pessoasCadastradas" :key="informacaoPessoa.id">
+            <div class="blocoDeInformacao bordinha" v-show="verificaExistencia(informacaoPessoa) == false">
+              <h2>{{informacaoPessoa.nomePessoa}}</h2>
+              <h4>{{informacaoPessoa.cpfPessoa}}</h4>
+              <button class="botao " @click="editarPaciente(), habilitarForm(), encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarPaciente"></button>
 
-          <div v-show="verificaExistencia(informacaoPessoa) == false">
-            <h2>{{informacaoPessoa.nomePessoa}}</h2>
-            <h4>{{informacaoPessoa.cpfPessoa}}</h4>
-            <button id="bEditPaciente" @click="editarPaciente(), habilitarForm(), encontrarPessoa(informacaoPessoa)">editarPaciente</button>
-
-            <div id="excluirPaciente">
-              <button class="bExc" @click="bExcluir = true, bCerto = informacaoPessoa.id">excluirPaciente</button>
-
+              <button class="botao" @click="bExcluir = true, bCerto = informacaoPessoa.id"><img class="icone" src="@/assets/trash.png" alt="excluirPaciente"></button>
+              <div class="excluir" v-show="bExcluir == true && bCerto == informacaoPessoa.id">
+                <img class="alertIcon" src="@/assets/alert.png" alt="iconeAlerta">
+                <h2 class="confirmacaoExclusao">Quer realmente excluir esse paciente?</h2>
+                <div>
+                  <button class="botaoEscolha" @click="confirmacaoExcluir(informacaoPessoa)">Sim</button>
+                  <button class="botaoEscolha" @click="bExcluir = false">Não</button>
+                </div>
+              </div>
             </div>
-
           </div>
         </div>
       </div>
-
     </div>
 
     <div v-else>
@@ -91,6 +99,8 @@ export default {
       this.acao = "Cadastrar",
       this.tipoConta = true,
       this.imagemMP = 'doctor.jpg'
+
+
     },
     editarMedico() { // aqui tambem ja da pra colocar pra editar no bd o forms que a pessoa preencheu
       this.addEditar = "Editar ",
@@ -122,11 +132,19 @@ export default {
       this.pessoasCadastradas.confSenhaPessoa = infoPessoa.confSenhaPessoa;
     },
 
+    limparTextoCadastro() {
+      this.pessoasCadastradas.nomePessoa = "";
+      this.pessoasCadastradas.cpfPessoa = "";
+      this.pessoasCadastradas.especialidadeMedico = "";
+      this.pessoasCadastradas.senhaPessoa = "";
+      this.pessoasCadastradas.confSenhaPessoa = "";
+    },
+
     verificaExistencia(possivelObj) { // isso seleciona qual é medico e qual é paciente com base se ele possui o objeto especialidade
       if(typeof possivelObj.especialidadeMedico != "undefined") {
         return true; // isso verifica se é medico, e se for retorna true
       }
-      else if(possivelObj.nomePessoa != "undefined"){
+      else if(typeof possivelObj.nomePessoa != "undefined"){
         return false; // isso verifica se ainda existe um nomedapessoa, significando que aquele nome existe como paciente
       }
       else {
@@ -162,6 +180,7 @@ export default {
       this.bExcluir = false; //tirar a tela de exclusao da nossa frente
     },
 
+
   },
 
   data() { // esse são os objetos, que vao ser usados nos métodos, e também são os que estão sendo utilizados lá no addEditarMedicoPaciente.vue passado por props(aql regiao do codigo verde)
@@ -186,6 +205,22 @@ export default {
         {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
         {id: 4, nomePessoa: 'Joelma', especialidadeMedico: 'Neurocirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaJoelma', confSenhaPessoa: 'senhaJoelma'},
         {id: 5, nomePessoa: 'Amanda',  cpfPessoa: '11122233344', senhaPessoa: 'senhaAmanda', confSenhaPessoa: 'senhaAmanda'},
+        {id: 1, nomePessoa: 'Rafael', especialidadeMedico: 'Cirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaRafael', confSenhaPessoa: 'senhaRafael'},
+        {id: 2, nomePessoa: 'Pedro', especialidadeMedico: 'Cardiologista', cpfPessoa: '11122233344', senhaPessoa: 'senhaPedro', confSenhaPessoa: 'senhaPedro'},
+        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
+        {id: 4, nomePessoa: 'Joelma', especialidadeMedico: 'Neurocirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaJoelma', confSenhaPessoa: 'senhaJoelma'},
+        {id: 5, nomePessoa: 'Amanda',  cpfPessoa: '11122233344', senhaPessoa: 'senhaAmanda', confSenhaPessoa: 'senhaAmanda'},
+        {id: 1, nomePessoa: 'Rafael', especialidadeMedico: 'Cirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaRafael', confSenhaPessoa: 'senhaRafael'},
+        {id: 2, nomePessoa: 'Pedro', especialidadeMedico: 'Cardiologista', cpfPessoa: '11122233344', senhaPessoa: 'senhaPedro', confSenhaPessoa: 'senhaPedro'},
+        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
+        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
+        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
+        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
+        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
+        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
+        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
+        {id: 4, nomePessoa: 'Joelma', especialidadeMedico: 'Neurocirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaJoelma', confSenhaPessoa: 'senhaJoelma'},
+        {id: 5, nomePessoa: 'Amanda',  cpfPessoa: '11122233344', senhaPessoa: 'senhaAmanda', confSenhaPessoa: 'senhaAmanda'},
       ],
 
     }
@@ -194,5 +229,101 @@ export default {
 </script>
 
 <style>
+#container {
+  display: flex;
+  margin-left: 170px;
+  justify-content: center;
+  overflow-y: hidden;
+}
+.logos {
+  height: 100px;
+  width: 100px;
+  border: 2.5px solid #2E4A7D;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 20px 30px 0px;
+}
+.lista {
+  margin: 50px 80px 0px 0px;
+}
+.cad {
+  margin-top: 40px;
+}
+.divider {
+  position: absolute;
+  margin: 155px 0px 50px 50px;
+  width: 500px;
+  height: 1px;
+  border: 1px solid rgba(46, 74, 125, 0.5);
+}
+.botao {
+  height: 45px;
+  width: 45px;
+  background-color: #2E4A7D;
+  border-radius: 20px;
+  border-style: none;
+}
+.icone {
+  height: 25px;
+  width: 25px;
+}
+.excluir {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: linear-gradient(0deg, #9dcadd, #aed4e5);
+  border: 1px solid #000000;
+  border-radius: 8px;
+  width: 300px;
+  height: 80px;
+}
+.alertIcon {
+  height: 20px;
+  width: 25px;
+  margin: 10px;
+}
+.confirmacaoExclusao {
+  font-size: 14px;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+.botaoEscolha {
+  font-size: 14px;
+  color: white;
+  background-color: #2e4a7d;
+  border-style: none;
+  border-radius: 8px;
+  height: 30px;
+  width: 60px;
+  margin-left: 10px;
+}
+.configPessoa {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 780px;
+  max-width: 600px;
+  height: 780px;
+  width: 600px;
+  background-color: white;
+  margin-right: 50px;
+
+}
+.blocos {
+  overflow-y: scroll;
+  margin-left: 40px;
+  max-height: 600px;
+  max-width: 600px;
+  margin-top: 70px; 
+}
+.blocoDeInformacao {
+  background: linear-gradient(180deg, #FFD666 0%, rgba(255, 255, 255, 0.5) 100%);
+  border-radius: 8px;
+  height: 80px;
+  width: 500px;
+  max-width: 500px;
+  max-height: 80px;
+}
+
 
 </style>

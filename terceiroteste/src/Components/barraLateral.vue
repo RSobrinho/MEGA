@@ -2,8 +2,9 @@
   <div>
     <configuracoesPrincipais/>
     <div id="barra">
-      <button @click="$emit('voltar')">
-        <img id="logo" src="@/assets/DuckHealthLogo.png" alt="logopato">
+      <img id="logo" src="@/assets/DuckHealthLogo.png" alt="logo">
+      <button id="botao" @click="$emit('voltar')">
+        <img id="logout" src="@/assets/logout.png" alt="logopato">
       </button>
     </div>
   </div>
@@ -24,29 +25,37 @@ export default {
 
 <style>
 #barra {
-  position: relative;
+  position: absolute;
   background-color: #15c3d6;
   width: 112px;
   height: 100%;
   border-radius: 0px 8px 8px 0px;
+
 }
 #logo {
-  background-color: #2e4a7d;
-  width: 50px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
   height: 50px;
+  width: 50px;
+  background-color: #2E4A7D;
   border-radius: 8px;
-  margin: 30px;
+
+}
+
+#logout {
+  width: 40px;
+  height: 40px;
 }
 #botao {
+  width: 55px;
+  height: 55px;
+  border-style: none;
   position:absolute;
-  width: 50px;
-  height: 50px;
   background-color: #12afcb;
-  border-radius: 8px;
-  padding: 9px;
-  margin: 30px;
-  bottom: 0%;
-  top: auto;
+  border-radius: 16px;
+  left: 30px;
+  bottom: 30px;
   
 }
 </style>
