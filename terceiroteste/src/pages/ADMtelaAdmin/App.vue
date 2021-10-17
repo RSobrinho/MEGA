@@ -11,13 +11,16 @@
         <div class="divider"></div>
         <div class="blocos">
           <div v-for="informacaoPessoa in pessoasCadastradas" :key="informacaoPessoa.id"> <!--Esse div v-for vai fazer tudo oq ta dentro, na quantidade de pessoas que existem no array de objetos, que na vdd vc vai muda pra a qtde de elementos no bd  |  Alem disso, ele vai ter o botao pra abrir o form de edicao, que vai ter q lincar com o bd pra pegaWr os dados de la, e transferir para o array de elementos | E o botao de excluir medico tbm vai estar ligado ao bd, pra excluir X pessoa e seus elementos no array-->
-            <span class="bordinha"></span>
             <div class="blocoDeInformacao" v-show="verificaExistencia(informacaoPessoa) == true">
-              <h2>{{informacaoPessoa.nomePessoa}}</h2>
-              <h4>{{informacaoPessoa.cpfPessoa}}</h4>
-              <button class="botao" @click="editarMedico(), habilitarForm(), encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarMedico"></button>
-            
-              <button class="botao" @click="bExcluir = true, bCerto = informacaoPessoa.id"><img class="icone" src="@/assets/trash.png" alt="excluirMedico"></button>
+              <h2 class="nomePessoa">{{informacaoPessoa.nomePessoa}}</h2>
+              <h4 class="cpfPessoa">{{informacaoPessoa.cpfPessoa}}</h4>
+              <div class="bordinha"></div>
+
+              <span class="botoes">
+                <button class="botao" @click="editarMedico(), habilitarForm(), encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarMedico"></button>
+                <button class="botao" @click="bExcluir = true, bCerto = informacaoPessoa.id"><img class="icone" src="@/assets/trash.png" alt="excluirMedico"></button>
+              </span>
+
               <div class="excluir" v-show="bExcluir == true && bCerto == informacaoPessoa.id">
                 <img class="alertIcon" src="@/assets/alert.png" alt="iconeAlerta">
                 <h2 class="confirmacaoExclusao">Quer realmente excluir esse médico?</h2>
@@ -38,12 +41,15 @@
         <div class="divider"></div>
         <div class="blocos">
           <div v-for="informacaoPessoa in pessoasCadastradas" :key="informacaoPessoa.id">
-            <div class="blocoDeInformacao bordinha" v-show="verificaExistencia(informacaoPessoa) == false">
-              <h2>{{informacaoPessoa.nomePessoa}}</h2>
-              <h4>{{informacaoPessoa.cpfPessoa}}</h4>
-              <button class="botao " @click="editarPaciente(), habilitarForm(), encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarPaciente"></button>
+            <div class="blocoDeInformacao" v-show="verificaExistencia(informacaoPessoa) == false">
+              <h2 class="nomePessoa">{{informacaoPessoa.nomePessoa}}</h2>
+              <h4 class="cpfPessoa">{{informacaoPessoa.cpfPessoa}}</h4>
+              <div class="bordinha"></div>
 
-              <button class="botao" @click="bExcluir = true, bCerto = informacaoPessoa.id"><img class="icone" src="@/assets/trash.png" alt="excluirPaciente"></button>
+              <span class="botoes">
+                <button class="botao " @click="editarPaciente(), habilitarForm(), encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarPaciente"></button>
+                <button class="botao" @click="bExcluir = true, bCerto = informacaoPessoa.id"><img class="icone" src="@/assets/trash.png" alt="excluirPaciente"></button>
+              </span>
               <div class="excluir" v-show="bExcluir == true && bCerto == informacaoPessoa.id">
                 <img class="alertIcon" src="@/assets/alert.png" alt="iconeAlerta">
                 <h2 class="confirmacaoExclusao">Quer realmente excluir esse paciente?</h2>
@@ -268,7 +274,6 @@ export default {
   width: 25px;
 }
 .excluir {
-  position: absolute;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -276,7 +281,10 @@ export default {
   border: 1px solid #000000;
   border-radius: 8px;
   width: 300px;
-  height: 80px;
+  height: 70px;
+  margin-left: 200px;
+  bottom: 75px;
+  position: relative;
 }
 .alertIcon {
   height: 20px;
@@ -294,8 +302,8 @@ export default {
   background-color: #2e4a7d;
   border-style: none;
   border-radius: 8px;
-  height: 30px;
-  width: 60px;
+  height: 26px;
+  width: 55px;
   margin-left: 10px;
 }
 .configPessoa {
@@ -314,7 +322,7 @@ export default {
   margin-left: 40px;
   max-height: 600px;
   max-width: 600px;
-  margin-top: 70px; 
+  margin-top: 50px; 
 }
 .blocoDeInformacao {
   background: linear-gradient(180deg, #FFD666 0%, rgba(255, 255, 255, 0.5) 100%);
@@ -323,6 +331,44 @@ export default {
   width: 500px;
   max-width: 500px;
   max-height: 80px;
+  margin-bottom: 10px;
+}
+.bordinha {
+  position: relative;
+  background-color:#2e4a7d;
+  border-radius: 8px 0px 0px 8px;
+  height: 70px;
+  width: 11px;
+  display: inline-block;
+  bottom: 30px;
+  right: 136px;
+}
+.nomePessoa {
+  position: relative;
+  top: 8px;
+  font-size: 22px;
+  margin-left: 30px;
+}
+.cpfPessoa {
+  top: 5px;
+  position: relative;
+  font-size: 16px;
+  color: rgba(46, 74, 125, 0.6);
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 30px;
+
+}
+.botao {
+  display: inline-block;
+  margin-left: 30px;
+}
+.botoes {
+  vertical-align: top;
+  position: relative;
+  margin-left: 200px;
+  bottom: 20px;
 }
 
 
