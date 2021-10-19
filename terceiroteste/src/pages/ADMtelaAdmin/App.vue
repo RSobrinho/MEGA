@@ -2,12 +2,12 @@
   <div>
     <configuracoesPrincipais/>
     <barraLateral @voltar="desabilitarForm"/>
-    <div id="container" v-if="s1 == false">
+    <div id="container" v-if="s1 == 0">
 
       <div class="configPessoa">
         <img class="logos" src="@/assets/doctor4.png" alt="fotoMedico">
         <h1 class="lista">Lista de Medicos</h1>
-        <button class="botao cad" @click="cadastrarMedico(), habilitarForm(), limparTextoCadastro(), bExcluir = false"><img class="icone" src="@/assets/add.png" alt="cadastrarMedico"></button>
+        <button class="botao cad" @click="s1 = 4, limparTextoCadastro(), bExcluir = false"><img class="icone" src="@/assets/add.png" alt="cadastrarMedico"></button>
         <div class="divider"></div>
         <div class="blocos">
           <div v-for="informacaoPessoa in pessoasCadastradas" :key="informacaoPessoa.id"> <!--Esse div v-for vai fazer tudo oq ta dentro, na quantidade de pessoas que existem no array de objetos, que na vdd vc vai muda pra a qtde de elementos no bd  |  Alem disso, ele vai ter o botao pra abrir o form de edicao, que vai ter q lincar com o bd pra pegaWr os dados de la, e transferir para o array de elementos | E o botao de excluir medico tbm vai estar ligado ao bd, pra excluir X pessoa e seus elementos no array-->
@@ -17,7 +17,7 @@
               <div class="bordinha"></div>
 
               <span class="botoes">
-                <button class="botao" @click="editarMedico(), habilitarForm(), encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarMedico"></button>
+                <button class="botao" @click="s1 = 2, encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarMedico"></button>
                 <button class="botao" @click="bExcluir = true, bCerto = informacaoPessoa.id"><img class="icone" src="@/assets/trash.png" alt="excluirMedico"></button>
               </span>
 
@@ -37,7 +37,7 @@
       <div class="configPessoa">
         <img class="logos" src="@/assets/patient.png" alt="fotoPaciente">
         <h1 class="lista">Lista de Pacientes</h1>
-        <button class="botao cad" @click="cadastrarPaciente(), habilitarForm(), limparTextoCadastro(), bExcluir = false"><img class="icone" src="@/assets/add.png" alt="cadastrarPaciente"></button>
+        <button class="botao cad" @click="s1 = 3, limparTextoCadastro(), bExcluir = false"><img class="icone" src="@/assets/add.png" alt="cadastrarPaciente"></button>
         <div class="divider"></div>
         <div class="blocos">
           <div v-for="informacaoPessoa in pessoasCadastradas" :key="informacaoPessoa.id">
@@ -47,7 +47,7 @@
               <div class="bordinha"></div>
 
               <span class="botoes">
-                <button class="botao " @click="editarPaciente(), habilitarForm(), encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarPaciente"></button>
+                <button class="botao " @click="s1 = 1, encontrarPessoa(informacaoPessoa), bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarPaciente"></button>
                 <button class="botao" @click="bExcluir = true, bCerto = informacaoPessoa.id"><img class="icone" src="@/assets/trash.png" alt="excluirPaciente"></button>
               </span>
               <div class="excluir" v-show="bExcluir == true && bCerto == informacaoPessoa.id">
@@ -64,33 +64,50 @@
       </div>
     </div>
 
-    <div v-else>
-      "<!--aqui é onde eu passo os props la do outro componente para serem mudados ou atualizados aqui, de forma dinamica-->"
-      <addEditarMedicoPaciente :addEditar="addEditar" :acao="acao" :tipo="tipo" :tipoConta="tipoConta" :imagemMP="imagemMP"
-      :nomePessoa="pessoasCadastradas.nomePessoa" :especialidadeMedico="pessoasCadastradas.especialidadeMedico"
+    <div v-else-if="s1 == 1">
+      <editarPaciente :nomePessoa="pessoasCadastradas.nomePessoa"
       :cpfPessoa="pessoasCadastradas.cpfPessoa" :senhaPessoa="pessoasCadastradas.senhaPessoa" 
       :confSenhaPessoa="pessoasCadastradas.confSenhaPessoa" :id="pessoasCadastradas.id"/>
+    </div>
+    <div v-else-if="s1 == 2">
+      <editarMedico :nomePessoa="pessoasCadastradas.nomePessoa" :especialidadeMedico="pessoasCadastradas.especialidadeMedico"
+      :cpfPessoa="pessoasCadastradas.cpfPessoa" :senhaPessoa="pessoasCadastradas.senhaPessoa" 
+      :confSenhaPessoa="pessoasCadastradas.confSenhaPessoa" :id="pessoasCadastradas.id"/>
+    </div>
+    <div v-else-if="s1 == 3">
+      <cadastrarPaciente/>
+    </div>
+    <div v-else-if="s1 == 4">
+      <cadastrarMedico/>
     </div>
   </div>
 </template>
 
 <script>
 
-import addEditarMedicoPaciente from '@/Components/addEditarMedicoPaciente.vue'
+//import addEditarMedicoPaciente from '@/Components/addEditarMedicoPaciente.vue'
 import barraLateral from '@/Components/barraLateral.vue'
 import configuracoesPrincipais from '@/Components/configuracoesPrincipais.vue'
+import editarPaciente from '@/Components/editarPaciente.vue'
+import editarMedico from '@/Components/editarMedico.vue'
+import cadastrarPaciente from '@/Components/cadastrarPaciente.vue'
+import cadastrarMedico from '@/Components/cadastrarMedico.vue'
 
 export default {
   name: 'ADMtelaAdmin',
   components: {
     configuracoesPrincipais,
-    addEditarMedicoPaciente,
-    barraLateral
+    //addEditarMedicoPaciente,
+    barraLateral,
+    editarPaciente,
+    editarMedico,
+    cadastrarPaciente,
+    cadastrarMedico
   },
   methods: {
     desabilitarForm() { // isso aq é pra sumir com o forms, q no futuro eu vou botar no botao inferior da barra lateral
-      if(this.s1 == true) {
-        this.s1 = false;
+      if(this.s1 != 0) {
+        this.s1 = 0;
       }
       else {
         window.history.back();
@@ -98,36 +115,6 @@ export default {
     },
     habilitarForm() { // isso aqui é pra aparecer o forms, seja de cadastro ou edicao
       this.s1 = true;
-    },
-    cadastrarMedico() { //aqui tambem ja da pra colocar pra cadastrar no bd o forms que a pessoa preencheu
-      this.addEditar = "Cadastrar ",
-      this.tipo = "Médico",
-      this.acao = "Cadastrar",
-      this.tipoConta = true,
-      this.imagemMP = 'doctor.jpg'
-
-
-    },
-    editarMedico() { // aqui tambem ja da pra colocar pra editar no bd o forms que a pessoa preencheu
-      this.addEditar = "Editar ",
-      this.tipo = "Médico",
-      this.acao = "Salvar",
-      this.tipoConta = true,
-      this.imagemMP = 'doctor.jpg'
-    },
-    editarPaciente() { //aqui tambem ja da pra colocar pra editar no bd o forms que a pessoa preencheu
-      this.addEditar = "Editar ";
-      this.tipo = "Paciente";
-      this.acao = "Salvar";
-      this.tipoConta = false;
-      this.imagemMP = 'doctor3.jpg'
-    },    
-    cadastrarPaciente() { //aqui tambem ja da pra colocar pra cadastrar no bd o forms que a pessoa preencheu
-      this.addEditar = "Cadastrar Novo ";
-      this.tipo = "Paciente";
-      this.acao = "Cadastrar";
-      this.tipoConta = false;
-      this.imagemMP = 'doctor3.jpg'
     },
 
     encontrarPessoa(infoPessoa) { // esse daqui serve so pra aparecer os dados da pessoa ja escrito no forms, pra pessoa alterar só oq ela quiser, e o resto manter
@@ -197,7 +184,7 @@ export default {
       tipoConta: true,
       imagemMP: 'doctor.jpg',
 
-      s1: false,
+      s1: 0,
       bExcluir: false,
       bCerto: false,
 
@@ -257,7 +244,7 @@ export default {
 }
 .divider {
   position: absolute;
-  margin: 155px 0px 50px 50px;
+  margin: 145px 0px 50px 50px;
   width: 500px;
   height: 1px;
   border: 1px solid rgba(46, 74, 125, 0.5);
@@ -309,9 +296,9 @@ export default {
 .configPessoa {
   display: flex;
   flex-wrap: wrap;
-  max-height: 780px;
+  max-height: 715px;
   max-width: 600px;
-  height: 780px;
+  height: 715px;
   width: 600px;
   background-color: white;
   margin-right: 50px;
@@ -320,8 +307,10 @@ export default {
 .blocos {
   overflow-y: scroll;
   margin-left: 40px;
-  max-height: 600px;
-  max-width: 600px;
+  max-height: 540px;
+  height: 540px;
+  max-width: 550px;
+  width: 550px;
   margin-top: 50px; 
 }
 .blocoDeInformacao {

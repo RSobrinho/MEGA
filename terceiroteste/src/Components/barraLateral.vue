@@ -25,10 +25,10 @@ export default {
 
 <style>
 #barra {
-  position: absolute;
+  position:fixed;
   background-color: #15c3d6;
   width: 112px;
-  height: 100%;
+  height: 100vh;
   border-radius: 0px 8px 8px 0px;
 
 }
