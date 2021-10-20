@@ -1,7 +1,6 @@
 <template>
   <div>
     <barraLateral @voltar="retornar"/>
-    <carregarNovoLaudo/>
     <barraHorizontalPesquisa/>
     <ConfiguracoesPrincipais/>
     <div id="container">
@@ -62,7 +61,6 @@
 
 <script>
 
-import carregarNovoLaudo from '@/Components/carregarNovoLaudo.vue'
 import barraLateral from '@/Components/barraLateral.vue'
 import barraHorizontalPesquisa from '@/Components/barraHorizontalPesquisa.vue'
 import ConfiguracoesPrincipais from '@/Components/configuracoesPrincipais.vue'
@@ -72,7 +70,6 @@ export default {
   name: 'MtelaUpload',
   components: {
     ConfiguracoesPrincipais,
-    carregarNovoLaudo,
     barraLateral,
     barraHorizontalPesquisa
   },

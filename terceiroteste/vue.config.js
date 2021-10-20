@@ -29,7 +29,7 @@
              title: 'listapacientes',
              chunks: [ 'chunk-vendors', 'chunk-common', 'listapacientes']
          },
-         'downloadLaudos': {
+         'downloadlaudos': {
              entry: './src/pages/PtelaDownloadLaudos/main.js',
              template: 'public/index.html',
              title: 'downloadlaudos',

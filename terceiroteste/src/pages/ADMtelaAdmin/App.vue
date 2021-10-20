@@ -227,6 +227,8 @@ export default {
   margin-left: 170px;
   justify-content: center;
   overflow-y: hidden;
+  position: relative;
+  top: 50px;
 }
 .logos {
   height: 100px;
@@ -302,6 +304,7 @@ export default {
   width: 600px;
   background-color: white;
   margin-right: 50px;
+  border-radius: 8px;
 
 }
 .blocos {
