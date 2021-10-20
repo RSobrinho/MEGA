@@ -1,6 +1,5 @@
 <template>
   <div>
-    <configuracoesPrincipais/>
     <div id="barra">
       <img id="logo" src="@/assets/DuckHealthLogo.png" alt="logo">
       <button id="botao" @click="$emit('voltar')">
@@ -11,15 +10,9 @@
 </template>
 
 <script>
-
-import configuracoesPrincipais from "./configuracoesPrincipais.vue"
-
 export default {
   name: 'barraLateral',
   emits: ['voltar'],
-  components: {
-    configuracoesPrincipais
-  }
 }
 </script>
 
@@ -30,7 +23,7 @@ export default {
   width: 112px;
   height: 100vh;
   border-radius: 0px 8px 8px 0px;
-
+  z-index: 1;
 }
 #logo {
   position: absolute;

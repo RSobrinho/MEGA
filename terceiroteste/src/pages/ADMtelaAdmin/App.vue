@@ -6,7 +6,7 @@
 
       <div class="configPessoa">
         <img class="logos" src="@/assets/doctor4.png" alt="fotoMedico">
-        <h1 class="lista">Lista de Medicos</h1>
+        <h1 class="lista">Lista de Médicos</h1>
         <button class="botao cad" @click="s1 = 4, limparTextoCadastro(), bExcluir = false"><img class="icone" src="@/assets/add.png" alt="cadastrarMedico"></button>
         <div class="divider"></div>
         <div class="blocos">
@@ -96,9 +96,9 @@ import cadastrarMedico from '@/Components/cadastrarMedico.vue'
 export default {
   name: 'ADMtelaAdmin',
   components: {
+    barraLateral,
     configuracoesPrincipais,
     //addEditarMedicoPaciente,
-    barraLateral,
     editarPaciente,
     editarMedico,
     cadastrarPaciente,
