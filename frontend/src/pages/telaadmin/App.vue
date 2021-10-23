@@ -7,61 +7,47 @@
       <div class="configPessoa">
         <img class="logos" src="@/assets/doctor4.png" alt="fotoMedico">
         <h1 class="lista">Lista de Medicos</h1>
-        <button class="botao cad" @click="s1 = 4, limparTextoCadastro()"><img class="icone" src="@/assets/add.png" alt="cadastrarMedico"></button>
+        <button class="botao cad" @click="s1 = 4, s2 = true"><img class="icone" src="@/assets/add.png" alt="cadastrarMedico"></button>
         <div class="divider"></div>
         <div class="blocos">
-          <div><div v-for="(medico, index) in medicos" :key="index"> <!--Esse div v-for vai fazer tudo oq ta dentro, na quantidade de pessoas que existem no array de objetos, que na vdd vc vai muda pra a qtde de elementos no bd  |  Alem disso, ele vai ter o botao pra abrir o form de edicao, que vai ter q lincar com o bd pra pegaWr os dados de la, e transferir para o array de elementos | E o botao de excluir medico tbm vai estar ligado ao bd, pra excluir X pessoa e seus elementos no array-->
+          <div v-for="(medico, index) in medicos" :key="index"> <!--Esse div v-for vai fazer tudo oq ta dentro, na quantidade de pessoas que existem no array de objetos, que na vdd vc vai muda pra a qtde de elementos no bd  |  Alem disso, ele vai ter o botao pra abrir o form de edicao, que vai ter q lincar com o bd pra pegaWr os dados de la, e transferir para o array de elementos | E o botao de excluir medico tbm vai estar ligado ao bd, pra excluir X pessoa e seus elementos no array-->
             <div class="blocoDeInformacao">
               <h2 class="nomePessoa">{{medico.nome}}</h2>
               <h4 class="cpfPessoa">{{medico.cpf}}</h4>
               <div class="bordinha"></div>
 
-              <span class="botoes">
+              <div class="botoes">
                 <button class="botao" @click="s1 = 2, bb = medico.idmedico, bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarMedico"></button>
-                <button class="botao" @click="bExcluir = true, bCerto = medico.id"><img class="icone" src="@/assets/trash.png" alt="excluirMedico"></button>
-              </span>
-
-              <div class="excluir" v-show="bExcluir == true && bCerto == informacaoPessoa.id">
-                <img class="alertIcon" src="@/assets/alert.png" alt="iconeAlerta">
-                <h2 class="confirmacaoExclusao">Quer realmente excluir esse médico?</h2>
-                <div>
-                  <button class="botaoEscolha" @click="confirmacaoExcluir(informacaoPessoa)">Sim</button>
-                  <button class="botaoEscolha" @click="bExcluir = false">Não</button>
-                </div>
+                <button class="botao" @click="excluirMedico(medico.idmedico)"><img class="icone" src="@/assets/trash.png" alt="excluirMedico"></button>
               </div>
+
+            
             </div>
-          </div></div>
+          </div>
         </div>
       </div>
 
       <div class="configPessoa">
         <img class="logos" src="@/assets/patient.png" alt="fotoPaciente">
         <h1 class="lista">Lista de Pacientes</h1>
-        <button class="botao cad" @click="s1 = 3, limparTextoCadastro()"><img class="icone" src="@/assets/add.png" alt="cadastrarPaciente"></button>
+        <button class="botao cad" @click="s1 = 3, s2 = true"><img class="icone" src="@/assets/add.png" alt="cadastrarPaciente"></button>
         <div class="divider"></div>
         <div class="blocos">
-          <div><div v-for="(paciente, index) in pacientes" :key="index">
+          <div v-for="(paciente, index) in pacientes" :key="index">
             <div class="blocoDeInformacao">
               <h2 class="nomePessoa">{{paciente.nome}}</h2>
               <h4 class="cpfPessoa">{{paciente.cpf}}</h4>
               <div class="bordinha"></div>
 
-              <span class="botoes">
-                <button class="botao " @click="s1 = 1, bb = paciente.idpaciente, bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarPaciente"></button>
-                <button class="botao" @click="bExcluir = true, bCerto = paciente.id"><img class="icone" src="@/assets/trash.png" alt="excluirPaciente"></button>
-              </span>
-              <div class="excluir" v-show="bExcluir == true && bCerto == informacaoPessoa.id">
-                <img class="alertIcon" src="@/assets/alert.png" alt="iconeAlerta">
-                <h2 class="confirmacaoExclusao">Quer realmente excluir esse paciente?</h2>
-                <div>
-                  <button class="botaoEscolha" @click="confirmacaoExcluir(paciente.idpaciente)">Sim</button>
-                  <button class="botaoEscolha" @click="bExcluir = false">Não</button>
-                </div>
+              <div class="botoes">
+                <button class="botao" @click="s1 = 1, bb = paciente.idpaciente, bExcluir = false"><img class="icone" src="@/assets/paper.png" alt="editarPaciente"></button>
+                <button class="botao" @click="excluirPaciente(paciente.idpaciente)"><img class="icone" src="@/assets/trash.png" alt="excluirPaciente"></button>
               </div>
+             
             </div>
           
 
-          </div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -121,42 +107,28 @@ export default {
       this.s1 = true;
     },
 
-    encontrarPessoa(infoPessoa) { // esse daqui serve so pra aparecer os dados da pessoa ja escrito no forms, pra pessoa alterar só oq ela quiser, e o resto manter
-      this.pessoasCadastradas.nomePessoa = infoPessoa.nomePessoa;
-      this.pessoasCadastradas.especialidadeMedico = infoPessoa.especialidadeMedico;
-      this.pessoasCadastradas.cpfPessoa = infoPessoa.cpfPessoa;
-      this.pessoasCadastradas.senhaPessoa = infoPessoa.senhaPessoa;
-      this.pessoasCadastradas.confSenhaPessoa = infoPessoa.confSenhaPessoa;
-    },
 
-    limparTextoCadastro() {
-      this.pessoasCadastradas.nomePessoa = "";
-      this.pessoasCadastradas.cpfPessoa = "";
-      this.pessoasCadastradas.especialidadeMedico = "";
-      this.pessoasCadastradas.senhaPessoa = "";
-      this.pessoasCadastradas.confSenhaPessoa = "";
-    },
+  
     
 
-    verificaExistencia(possivelObj) { // isso seleciona qual é medico e qual é paciente com base se ele possui o objeto especialidade
-      if(typeof possivelObj.especialidadeMedico != "undefined") {
-        return true; // isso verifica se é medico, e se for retorna true
-      }
-      else if(typeof possivelObj.nomePessoa != "undefined"){
-        return false; // isso verifica se ainda existe um nomedapessoa, significando que aquele nome existe como paciente
-      }
-      else {
-        return 3; // isso aqui é só se o valor é apagado, porque tudo é undefined, mas n é mto importante n já que vai dar reload na pagina msm, e alterar no bd
-      }
+
+    async excluirMedico(idzao) { // excluir um array/tupla no bd, aqui vc escolhe oq fica melhor pra conectar no bd, e muda tbm se precisar
+          var result = confirm("Você quer mesmo deletar esse médico?")
+          if(result){
+            await axios.delete("http://localhost:3000/deletar-medico/" + idzao)
+            window.location.reload()
+          }
     },
 
-    async confirmacaoExcluir() { // excluir um array/tupla no bd, aqui vc escolhe oq fica melhor pra conectar no bd, e muda tbm se precisar
-      
-/* delete (bookmarkId) {
-    return Api().delete(`bookmarks/${bookmarkId}`)
-  } */
-      //this.bExcluir = false; //tirar a tela de exclusao da nossa frente
-    },
+    async excluirPaciente(idzao){
+         var result = confirm("Você quer mesmo deletar esse paciente?")
+          if(result){
+            await axios.delete("http://localhost:3000/deletar-paciente/" + idzao)
+            window.location.reload()
+          }
+      }
+
+    
 
 
   },
@@ -179,42 +151,22 @@ export default {
       por enquanto eu deixei uns prontos, porque nao ta conectado com o bd, e qnd tiver(com os dados dessa forma ou eu posso mudar se precisar de acordo com o bd), 
       os dados vao aparecer automaticamente no front*/
 
-      pessoasCadastradas: [
-        {id: 1, nomePessoa: 'Rafael', especialidadeMedico: 'Cirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaRafael', confSenhaPessoa: 'senhaRafael'},
-        {id: 2, nomePessoa: 'Pedro', especialidadeMedico: 'Cardiologista', cpfPessoa: '11122233344', senhaPessoa: 'senhaPedro', confSenhaPessoa: 'senhaPedro'},
-        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 4, nomePessoa: 'Joelma', especialidadeMedico: 'Neurocirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaJoelma', confSenhaPessoa: 'senhaJoelma'},
-        {id: 5, nomePessoa: 'Amanda',  cpfPessoa: '11122233344', senhaPessoa: 'senhaAmanda', confSenhaPessoa: 'senhaAmanda'},
-        {id: 6, nomePessoa: 'Rafael', especialidadeMedico: 'Cirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaRafael', confSenhaPessoa: 'senhaRafael'},
-        {id: 7, nomePessoa: 'Pedro', especialidadeMedico: 'Cardiologista', cpfPessoa: '11122233344', senhaPessoa: 'senhaPedro', confSenhaPessoa: 'senhaPedro'},
-        {id: 8, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 9, nomePessoa: 'Joelma', especialidadeMedico: 'Neurocirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaJoelma', confSenhaPessoa: 'senhaJoelma'},
-        {id: 10, nomePessoa: 'Amanda',  cpfPessoa: '11122233344', senhaPessoa: 'senhaAmanda', confSenhaPessoa: 'senhaAmanda'},
-        {id: 11, nomePessoa: 'Rafael', especialidadeMedico: 'Cirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaRafael', confSenhaPessoa: 'senhaRafael'},
-        {id: 12, nomePessoa: 'Pedro', especialidadeMedico: 'Cardiologista', cpfPessoa: '11122233344', senhaPessoa: 'senhaPedro', confSenhaPessoa: 'senhaPedro'},
-        {id: 13, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 14, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 15, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 16, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 17, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 18, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 19, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 20, nomePessoa: 'Joelma', especialidadeMedico: 'Neurocirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaJoelma', confSenhaPessoa: 'senhaJoelma'},
-        {id: 21, nomePessoa: 'Amanda',  cpfPessoa: '11122233344', senhaPessoa: 'senhaAmanda', confSenhaPessoa: 'senhaAmanda'},
-      ],
 
     }
   },
-  async created(){
+  async mounted(){
      const response = await axios.get('http://localhost:3000/listar-pacientes')
      const response2 = await axios.get('http://localhost:3000/listar-medicos')
                                 
      this.pacientes = response.data
      this.medicos = response2.data
-     console.log(this.pacientes)
-     console.log(this.medicos)
-  }
+
+  },
+ /*  if(s2){
+    created()
+  } */
 }
+
 </script>
 
 <style>
@@ -223,6 +175,8 @@ export default {
   margin-left: 170px;
   justify-content: center;
   overflow-y: hidden;
+  position: relative;
+  top: 50px;
 }
 .logos {
   height: 100px;
@@ -251,10 +205,18 @@ export default {
   background-color: #2E4A7D;
   border-radius: 20px;
   border-style: none;
+  margin-left: 30px;
+}
+.botoes {
+  vertical-align: top;
+  position: relative;
+  bottom: 95px;
+  left: 330px;
 }
 .icone {
   height: 25px;
   width: 25px;
+  position: relative;
 }
 .excluir {
   display: flex;
@@ -268,6 +230,7 @@ export default {
   margin-left: 200px;
   bottom: 75px;
   position: relative;
+  z-index: 1;
 }
 .alertIcon {
   height: 20px;
@@ -298,6 +261,8 @@ export default {
   width: 600px;
   background-color: white;
   margin-right: 50px;
+  border-radius: 8px;
+
 }
 .blocos {
   overflow-y: scroll;
@@ -342,17 +307,10 @@ export default {
   display: inline-block;
   vertical-align: top;
   margin-left: 30px;
+
 }
-.botao {
-  display: inline-block;
-  margin-left: 30px;
-}
-.botoes {
-  vertical-align: top;
-  position: relative;
-  margin-left: 200px;
-  bottom: 20px;
-}
+
 
 
 </style>
+

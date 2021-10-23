@@ -8,8 +8,9 @@
       <div id="blocos">
         <div v-for="(paciente, index) in pacientes" :key="index">
           <div id="blocoDeInformacao" >
+            
             <div id="bordinha"><img src="@/assets/quad-card-patient.png" alt="quadriculado"></div>
-            <a @click="idPaciente=info.id" href="upload"><img id="logoPaciente" src="@/assets/patient.png" alt="paciente"></a>
+            <a @click="jao=paciente.idpaciente" href="telaupload?=+jao" ><img id="logoPaciente" src="@/assets/patient.png" alt="paciente"></a>
             <h1 id="t1">{{paciente.nome}}</h1>
             <h4>{{paciente.cpf}}</h4>
           </div>
@@ -38,17 +39,22 @@ export default {
   },
   data() {
       return{
-        pacientes: []
+        pacientes: [],
+        jao: ''
       };   
   },
   props: {
     idPaciente: Number
+  },
+  methods: {
+    
   },
 
     
   async created(){
      const response = await axios.get('http://localhost:3000/listar-pacientes')
      this.pacientes = response.data
+     
      console.log(this.pacientes)
   }
 }

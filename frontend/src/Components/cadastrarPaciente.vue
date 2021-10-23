@@ -9,7 +9,7 @@
               <div><input type="text" name="nomeCompleto" id="nomeCompleto" v-model="nomePess" class="bInfo" placeholder="Nome Completo"></div>
               <div><input type="text" name="cpf" id="cpf" v-model="cpfPessoa" class="bInfo" placeholder="CPF"></div>
               <div><input type="password" name="senha" id="senha" v-model="senhaPessoa" class="bInfo" placeholder="Senha"></div>
-              <div><input type="password" name="cpf" id="confirmarSenha" class="bInfo" placeholder="Confirmar Senha"></div>
+              <div><input type="password" name="cpf" id="confirmarSenha" v-model="confirma" class="bInfo" placeholder="Confirmar Senha"></div>
               <div><input type="submit" name="enviar" id="enviar" @click="enviar" class="bInfo" value="Cadastrar"></div>
             </div>
           
@@ -29,7 +29,8 @@ export default {
     return {
       cpfPessoa: '',
       nomePess: '',
-      senhaPessoa: ''
+      senhaPessoa: '',
+      confirma: '',
     }
   },
   methods: {
@@ -38,10 +39,19 @@ export default {
             cpf:this.cpfPessoa,
             nome:this.nomePess,
             senha:this.senhaPessoa,
+          };
+
+          if(this.senhaPessoa == this.confirma){
+              axios.post("http://localhost:3000/cadastrar-paciente", data)
+              .then(response => console.log(response))
+              confirm("Paciente cadastrado com sucesso!")
+              
           }
-          axios.post("http://localhost:3000/cadastrar-paciente", data)
-          .then(response => console.log(response));
-    }
+          else{
+            confirm("As senhas não coincidem.")
+          }
+    },
+    
 
   }
 }

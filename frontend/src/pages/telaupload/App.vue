@@ -42,17 +42,21 @@
           </form>
           
         </div>
-          <form id="formularioDuvidas" method="POST" action="NÃO SEI ;-;">
+          
             <div id="p1Form">
-              <div id="textoP1">Nome do Laudo</div>
-              <input type="text" name="nomeDoLaudo" id="nomeDoLaudo">
+              <div id="textoP1">Nome do Doutor</div>
+              <input type="text" name="nomeDoDoutor" v-model="nomeD" id="nomeDoDoutor">
+            </div>
+            <div id="p3Form">
+              <div id="textoP3">Nome do Laudo</div>
+              <input type="text" name="nomeDoLaudo" v-model="nomeL" id="nomeDoLaudo">
             </div>
             <div id="p2Form">
               <div id="textoP2">Data</div>
               <input type="text" name="data" id="data">
             </div>
-            <input type="submit" name="Nome" id="enviarLaudo" value="Enviar Laudo">
-          </form>
+            <input type="submit" name="Nome" id="enviarLaudo" @click="vai" value="Enviar Laudo">
+         
       </div>
     </div>
 
@@ -64,7 +68,7 @@
 import barraLateral from '@/Components/barraLateral.vue'
 import barraHorizontalPesquisa from '@/Components/barraHorizontalPesquisa.vue'
 import ConfiguracoesPrincipais from '@/Components/configuracoesPrincipais.vue'
- 
+import axios from 'axios'
 
 export default {
   name: 'MtelaUpload',
@@ -90,7 +94,23 @@ export default {
 
     retornar() {
       window.history.back();
-    }
+    },
+    vai(){
+        const data = {
+            nomelaudo:this.nomeL,
+            nomedoutor:this.nomeD,
+          
+          }
+          if(this.senhaPessoa == this.confirma){
+              axios.post("http://localhost:3000/cadastrar-laudo", data)
+              .then(response => console.log(response))
+              confirm("Laudo cadastrado com sucesso!")
+              
+          }
+          else{
+            confirm("As senhas não coincidem.")
+          }
+      }
 
   },
 
@@ -98,19 +118,10 @@ export default {
     return {
       idPaciente: 10, // seguinte, aqui pra eu terminar de programar eu dei um valor de id valido, mas normalmente eu setaria como 0
       bExcluir: false,
+      nomeD: '',
+      nomeL: '',
+      
 
-/* aqui no id no caso, vc colocaria ACHO uma chave estrangeira apontando pra 
-pessoa, e o idInterno é um id interno, pra evidenciar todos os laudos de X paciente,
-ent cada id de laudo = id de paciente, vai ter n idInterno
-
-Nesse objeto arquivo, vc referencia de acordo com a pessoa 
-E de acordo com o laudo interno do BD, pra ser o arquivo selecionado da pessoa selecionada
-
-Ent pra exemplificar eu vou criar as pessoasCadastradas aqui de novo, mas n é necessario ACHO se a gnt ta usando BD
-
-Se precisar referenciar as variáveis la do MtelaAdmin para esse arquivo, eu casso oq fazer, mas se n precisar melhor
-
-*/
       pessoasCadastradas: [
         {id: 1, nomePessoa: 'Rafael', especialidadeMedico: 'Cirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaRafael', confSenhaPessoa: 'senhaRafael'},
         {id: 2, nomePessoa: 'Pedro', especialidadeMedico: 'Cardiologista', cpfPessoa: '11122233344', senhaPessoa: 'senhaPedro', confSenhaPessoa: 'senhaPedro'},
@@ -161,7 +172,8 @@ Se precisar referenciar as variáveis la do MtelaAdmin para esse arquivo, eu cas
     }
 
 
-  }
+  },
+
 }
 
 </script>
@@ -218,6 +230,12 @@ h1 {
 }
 
 #nomeLaudo {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 20px;
+
+}
+#nomeDoutor {
   font-size: 20px;
   margin-top: 10px;
   margin-left: 20px;
@@ -323,7 +341,25 @@ h1 {
   margin-top: 10px;
   margin-left: 10px;
 }
+#p3Form {
+  background: #F5F5F5;
+  border-radius: 8px 8px 8px 0px;
+  height: 100px;
+  width: auto;
+}
+#textoP3 {
+  margin-top: 10px;
+  margin-left: 10px;
+}
 #nomeDoLaudo {
+  margin-left: 25px;
+  margin-right: 25px;
+  width: 400px;
+  height: 35px;
+  border: 1px solid #2E4A7D;
+  border-radius: 5px;
+}
+#nomeDoDoutor {
   margin-left: 25px;
   margin-right: 25px;
   width: 400px;

@@ -10,7 +10,7 @@
               <div><input type="text" name="especialidade" id="especialidade" v-model="especialidadeMedico" class="bInfo" placeholder="Especialidade"></div>
               <div><input type="text" name="cpf" id="cpf" v-model="cpfPessoa" class="bInfo" placeholder="CPF"></div>
               <div><input type="password" name="senha" id="senha" v-model="senhaPessoa" class="bInfo" placeholder="Senha"></div>
-              <div><input type="password" name="cpf" id="confirmarSenha" class="bInfo" placeholder="Confirmar Senha"></div>
+              <div><input type="password" name="cpf" id="confirmarSenha" v-model="confirma" class="bInfo" placeholder="Confirmar Senha"></div>
               <div><input type="submit" name="enviar" id="enviar" class="bInfo" @click="enviar" value="Cadastrar"></div>
             </div>
           
@@ -30,7 +30,8 @@ export default {
       nomePess: '',
       especialidadeMedico: '',
       cpfPessoa: '',
-      senhaPessoa: ''
+      senhaPessoa: '',
+      confirma: ''
     }
   },
   
@@ -42,8 +43,15 @@ export default {
             especialidade:this.especialidadeMedico,
             senha:this.senhaPessoa,
           }
-          axios.post("http://localhost:3000/cadastrar-medico", data)
-          .then(response => console.log(response.data));
+          if(this.senhaPessoa == this.confirma){
+              axios.post("http://localhost:3000/cadastrar-medico", data)
+              .then(response => console.log(response))
+              confirm("Médico cadastrado com sucesso!")
+              
+          }
+          else{
+            confirm("As senhas não coincidem.")
+          }
       }
   },
 }

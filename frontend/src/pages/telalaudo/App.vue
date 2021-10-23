@@ -5,21 +5,19 @@
     <BarraHorizontalPesquisa/>
 
     <div id="container">
-      <div v-for="laudo in laudos" :key="laudo.idInterno">
-        <div id="fundo" v-show="laudo.idPaciente == idPacienteCerto">
+      <div v-for="(laudo, index) in laudos" :key="index">
+        <div id="fundo" >
           <div id="blocoLaudo">
             <div id="infoCima">
-              <div id="nomeLaudo">Laudo de {{laudo.nomeLaudo}}</div>
+              
+              <div id="nomeLaudo">Laudo de {{laudo.nomelaudo}}</div>
               <div id="imagem"><img id="iconEsteto" src="@/assets/estetoscopio.png" alt="iconEsteto"></div>
               
             </div>
             <div id="divider"></div>
             <div id="infoBaixo">
-              <div id="medicoDoLaudo">{{laudo.medicoDoLaudo}}</div>
-              <div id="infoData">
-                <img id="iconCalendar" src="@/assets/calendar.png" alt="iconCalendar">
-                <span id="dataLaudo">  |  {{laudo.dataDoLaudo}}</span>
-              </div>
+              <div id="medicoDoLaudo">Dr.(a) {{laudo.nomedoutor}}</div>
+              
             </div>
             <div id="fundoDownload">
               <a href="laudoEspecifico.txt" :download="laudo.arquivo">
@@ -39,9 +37,12 @@
 import BarraLateral from '@/Components/barraLateral.vue'
 import BarraHorizontalPesquisa from '@/Components/barraHorizontalPesquisa.vue'
 import ConfiguracoesPrincipais from '@/Components/configuracoesPrincipais.vue'
+import axios from 'axios'
+
+
 
 export default {
-  name: 'PtelaDownloadLaudos',
+  name: 'telalaudo',
   components: {
     BarraLateral,
     BarraHorizontalPesquisa,
@@ -51,54 +52,8 @@ export default {
   data() {
     return {
       idPacienteCerto: 10, // seguinte, aqui pra eu terminar de programar eu dei um valor de id valido, mas normalmente eu setaria como 0
-
-      pessoasCadastradas: [
-        {id: 1, nomePessoa: 'Rafael', especialidadeMedico: 'Cirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaRafael', confSenhaPessoa: 'senhaRafael'},
-        {id: 2, nomePessoa: 'Pedro', especialidadeMedico: 'Cardiologista', cpfPessoa: '11122233344', senhaPessoa: 'senhaPedro', confSenhaPessoa: 'senhaPedro'},
-        {id: 3, nomePessoa: 'Emanuel', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 4, nomePessoa: 'Joelma', especialidadeMedico: 'Neurocirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaJoelma', confSenhaPessoa: 'senhaJoelma'},
-        {id: 5, nomePessoa: 'Amanda',  cpfPessoa: '11122233344', senhaPessoa: 'senhaAmanda', confSenhaPessoa: 'senhaAmanda'},
-        {id: 6, nomePessoa: 'Carlos', especialidadeMedico: 'Cirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaRafael', confSenhaPessoa: 'senhaRafael'},
-        {id: 7, nomePessoa: 'Paulo', especialidadeMedico: 'Cardiologista', cpfPessoa: '11122233344', senhaPessoa: 'senhaPedro', confSenhaPessoa: 'senhaPedro'},
-        {id: 8, nomePessoa: 'Ernesto', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 9, nomePessoa: 'Joana', especialidadeMedico: 'Neurocirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaJoelma', confSenhaPessoa: 'senhaJoelma'},
-        {id: 10, nomePessoa: 'Agata',  cpfPessoa: '11122233344', senhaPessoa: 'senhaAmanda', confSenhaPessoa: 'senhaAmanda'},
-        {id: 11, nomePessoa: 'Renato', especialidadeMedico: 'Cirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaRafael', confSenhaPessoa: 'senhaRafael'},
-        {id: 12, nomePessoa: 'Pietro', especialidadeMedico: 'Cardiologista', cpfPessoa: '11122233344', senhaPessoa: 'senhaPedro', confSenhaPessoa: 'senhaPedro'},
-        {id: 13, nomePessoa: 'Eduardo', cpfPessoa: '11122233344', senhaPessoa: 'senhaEmanuel', confSenhaPessoa: 'senhaEmanuel'},
-        {id: 14, nomePessoa: 'Juliana', especialidadeMedico: 'Neurocirurgiao', cpfPessoa: '11122233344', senhaPessoa: 'senhaJoelma', confSenhaPessoa: 'senhaJoelma'},
-        {id: 15, nomePessoa: 'Ana Clara',  cpfPessoa: '11122233344', senhaPessoa: 'senhaAmanda', confSenhaPessoa: 'senhaAmanda'}
-
-      ],
-
-      laudos: [
-        // obs os links dos laudos nao estao funcionando, msm que esteja referenciado "certo"
-        // "referenciando" a pessoa com id 3 no obj idL, que nao tem especialidade portanto é paciente
-
-        // Nesses medicos do laudo, eu preciso que no form que eu vou colocar, vc faca essa ligacao entre objeto e o forms, pra guardar dentro da "tupla" ou "array de objetos" pra guardar a string do medicoDoLaudo
-        {idInterno: 1, idPaciente: 3, arquivo: '@/testeLaudos/l2.txt', nomeLaudo: 'Eletrocardiograma', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2009"},
-        {idInterno: 2, idPaciente: 3, arquivo: '@/testeLaudos/l2.txt', nomeLaudo: 'Sondagem', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2010"},
-        {idInterno: 3, idPaciente: 3, arquivo: '@/testeLaudos/l3.txt', nomeLaudo: 'Exame de sangue', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2011"},
-        {idInterno: 4, idPaciente: 3, arquivo: '@/testeLaudos/l4.txt', nomeLaudo: 'Colonoscopia', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2012"},
-        {idInterno: 5, idPaciente: 3, arquivo: '@/testeLaudos/l5.txt', nomeLaudo: 'Laparoscopia', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2013"},
-        {idInterno: 6, idPaciente: 3, arquivo: '@/testeLaudos/l6.txt', nomeLaudo: 'SusAmonguscromia', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2014"},
-
-        // "referenciando" a pessoa com id 3 no obj idL, que nao tem especialidade portanto é paciente
-        {idInterno: 1, idPaciente: 10, arquivo: '@/testeLaudos/l7.txt', nomeLaudo: 'Eletrocardiograma', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2015"},
-        {idInterno: 2, idPaciente: 10, arquivo: '@/testeLaudos/l8.txt', nomeLaudo: 'Sondagem', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2016"},
-        {idInterno: 3, idPaciente: 10, arquivo: '@/testeLaudos/l9.txt', nomeLaudo: 'Exame de sangue', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2017"},
-        {idInterno: 4, idPaciente: 10, arquivo: '@/testeLaudos/l10.txt', nomeLaudo: 'Colonoscopia', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2018"},
-        {idInterno: 5, idPaciente: 10, arquivo: '@/testeLaudos/l11.txt', nomeLaudo: 'Laparoscopia', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2019"},
-        {idInterno: 6, idPaciente: 10, arquivo: '@/testeLaudos/l12.txt', nomeLaudo: 'SusAmonguscromia', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2020"},
-
-        // "referenciando" a pessoa com id 3 no obj idL, que nao tem especialidade portanto é paciente
-        {idInterno: 1, idPaciente: 13, arquivo: '@/testeLaudos/l13.txt', nomeLaudo: 'Eletrocardiograma', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2021"},
-        {idInterno: 2, idPaciente: 13, arquivo: '@/testeLaudos/l14.txt', nomeLaudo: 'Sondagem', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2022"},
-        {idInterno: 3, idPaciente: 13, arquivo: '@/testeLaudos/l15.txt', nomeLaudo: 'Exame de sangue', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2023"},
-        {idInterno: 4, idPaciente: 13, arquivo: '@/testeLaudos/l16.txt', nomeLaudo: 'Colonoscopia', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2024"},
-        {idInterno: 5, idPaciente: 13, arquivo: '@/testeLaudos/l17.txt', nomeLaudo: 'Laparoscopia', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2025"},
-        {idInterno: 6, idPaciente: 13, arquivo: '@/testeLaudos/l18.txt', nomeLaudo: 'SusAmonguscromia', medicoDoLaudo: 'Dr Hans Chucrute', dataDoLaudo: "03/05/2026"},
-      ]
+      laudos: [],
+      
 
     }
   },
@@ -107,6 +62,12 @@ export default {
     retornar() {
       window.history.back();
     }
+
+  },
+  async created(){
+     const response = await axios.get('http://localhost:3000/listar-laudos')
+     this.laudos = response.data
+     console.log(this.laudos)
   }
 }
 

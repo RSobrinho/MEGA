@@ -2,15 +2,15 @@
     <div id="container">
 
       <img id="imagem" src='@/assets/doctor3.jpg'>
-        <div id="formulario">
+        <div id="formulario" v-if="pacientes">
           
             <h1 id="cadEditMedPac">Editar <span id="profissao">Paciente</span></h1>
             <div id="blocosDeInformacao">
-              <div><input type="text" name="nomeCompleto" id="nomeCompleto" v-model="nomePessoa" class="bInfo" placeholder="Nome Completo"></div>
-              <div><input type="text" name="cpf" id="cpf" class="bInfo" placeholder="CPF" :value="id"></div>
-              <div><input type="password" name="senha" id="senha" class="bInfo" placeholder="Senha" value="$parent.medico.senha"></div>
-              <div><input type="password" name="cpf" id="confirmarSenha" class="bInfo" placeholder="Confirmar Senha" :value="senhaPessoa"></div>
-              <div><input type="submit" name="enviar" id="enviar" class="bInfo" value="Salvar"></div>
+              <div><input type="text" name="nomeCompleto" id="nomeCompleto" class="bInfo" placeholder="Nome Completo" v-model="nomezz.nome"></div>
+              <div><input type="text" name="cpf" id="cpf" class="bInfo" placeholder="CPF" v-model="nomezz.cpf"></div>
+              <div><input type="password" name="senha" id="senha" class="bInfo" placeholder="Senha" v-model="nomezz.senha"></div>
+              <div><input type="password" name="cpf" id="confirmarSenha" class="bInfo" placeholder="Confirmar Senha" v-model="nomezz.senha"></div>
+              <div><input type="submit" name="enviar" id="enviar" @click="update" class="bInfo" value="Salvar"></div>
             </div>
         
         </div>
@@ -18,22 +18,54 @@
 </template>
 
 <script>
-//import axios from 'axios'
+import axios from 'axios'
 
 
 export default {
   name: 'editarPaciente',
   components: {
   },
-
   props: {
-    // props para mudar o texto do front msm (Obs, mudei isso e fiz 4 componentes ao invés de 1 pra ficar mais tranquilo no back, mudando os valores, entao nao precisa mais delas)
-    id: String
-
+    id: Number
+  },
+  data(){
+    return{
+        pacientes: [],
+        nomezz: ''
+    
+        
+      };   
+  },
+  methods:{
+    update(){
+      const data = {
+            cpf:this.nomezz.cpf,
+            nome:this.nomezz.nome,
+            senha:this.nomezz.senha,
+      }
+      if(this.senhaPessoa == this.confirma){
+          axios.put("http://localhost:3000/update-pacientes/" + this.id, data)
+          .then(response => console.log(response.data));
+          confirm("Médico editado com sucesso!")
+      }else{
+            confirm("As senhas não coincidem.")
+          }
+      }
   },
   
-  
+
+  async created(){
+    const response = await axios.get('http://localhost:3000/listar-pacientes/'+ this.id)
+    console.log(this.pacientes)
+
+    this.nomezz = response.data
+
+  }
+
 }
+  
+  
+
 </script>
 
 <style scoped>
